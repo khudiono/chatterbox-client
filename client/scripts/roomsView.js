@@ -9,9 +9,8 @@ var RoomsView = {
       type: 'GET',
       data: room,
       contentType: 'application/json',
-      success: this.$button.on('click', function(){
-        console.log(room);
-        this.renderRoom(room);
+      success: RoomsView.$button.on('click', function(){
+        Rooms.add();
       }),
       error: function(error) {
         console.error('chatterbox: Failed to add room', error);
@@ -20,9 +19,8 @@ var RoomsView = {
   },
 
   renderRoom: function(room) {
-    console.log('render', room)
-    var renderedRoom = Rooms.render(room);
-    $(this.$select).append(renderedRoom);
+    var renderedRoom = Rooms.render({'roomname': room});
+    $(RoomsView.$select).append(renderedRoom);
   }
 
 };
