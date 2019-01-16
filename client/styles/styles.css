@@ -92,3 +92,8 @@ form input[type=text] {
     cursor: pointer;
 }
 
+select {
+    min-width: 25px;
+    max-width: 200px;
+}
+

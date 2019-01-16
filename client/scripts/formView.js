@@ -11,7 +11,7 @@ var FormView = {
     event.preventDefault();
     var newMessage = {
       username: App.username,
-      text: MessageView.escape($('#message').val()),
+      text: $('#message').val(),
       roomname: $(RoomsView.$select).val()
     };
 

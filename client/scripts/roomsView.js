@@ -4,23 +4,30 @@ var RoomsView = {
   $select: $('#rooms select'),
 
   initialize: function(room) {
-    $.ajax({
-      url: Parse.server,
-      type: 'GET',
-      data: room,
-      contentType: 'application/json',
-      success: RoomsView.$button.on('click', function(){
+    RoomsView.$button.on('click', function(){
         Rooms.add();
-      }),
-      error: function(error) {
-        console.error('chatterbox: Failed to add room', error);
-      }
+    });
+
+    Parse.readAll((data) => {
+      RoomsView.room(data.results);
     });
   },
 
   renderRoom: function(room) {
     var renderedRoom = Rooms.render({'roomname': room});
     $(RoomsView.$select).append(renderedRoom);
+  },
+
+  room: (data) => {
+    var rooms = [];
+    for (var i = 0; i < data.length; i++) {
+      if(!rooms.includes(data[i].roomname) && data[i].roomname && data[i].roomname.length < 50) {
+        rooms.push(data[i].roomname);
+      }
+    }
+    rooms.forEach(function(room) {
+      RoomsView.renderRoom(room);
+    })
   }
 
 };
